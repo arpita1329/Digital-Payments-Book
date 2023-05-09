@@ -7,7 +7,6 @@ import {
   IconButton,
   InputAdornment,
   TextField,
-  Checkbox,
   RadioGroup,
   Radio,
   FormControlLabel,
