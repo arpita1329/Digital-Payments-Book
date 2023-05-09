@@ -41,7 +41,7 @@ export default function LoginForm() {
 
   return (
     <>
-      <Stack justifyContent="space-between" sx={{ my: 2 }} fontSize={20} fontStyle={'italic'}>
+      <Stack justifyContent="space-between" sx={{ mb: 1 }} fontSize={20} fontStyle={'italic'}>
         Signing in as:
         <RadioGroup
           row
