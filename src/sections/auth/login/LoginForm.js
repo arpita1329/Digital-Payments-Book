@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // @mui
 import { Link, Stack, IconButton, InputAdornment, TextField, RadioGroup, Radio, FormControlLabel } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
@@ -39,6 +40,18 @@ export default function LoginForm() {
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <Stack justifyContent="space-between" sx={{ mb: 1 }} fontSize={20} fontStyle={'italic'}>
         Signing in as:
         <RadioGroup row aria-label="usertype" name="usertype" onChange={handleChange}>
