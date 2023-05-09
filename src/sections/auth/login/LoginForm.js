@@ -1,16 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // @mui
-import {
-  Link,
-  Stack,
-  IconButton,
-  InputAdornment,
-  TextField,
-  RadioGroup,
-  Radio,
-  FormControlLabel,
-} from '@mui/material';
+import { Link, Stack, IconButton, InputAdornment, TextField, RadioGroup, Radio, FormControlLabel } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // components
 import Iconify from '../../../components/iconify';
@@ -19,10 +10,17 @@ import Iconify from '../../../components/iconify';
 
 export default function LoginForm() {
   const navigate = useNavigate();
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
 
   const handleClick = () => {
     if (value === 'admin') {
@@ -43,24 +41,18 @@ export default function LoginForm() {
     <>
       <Stack justifyContent="space-between" sx={{ mb: 1 }} fontSize={20} fontStyle={'italic'}>
         Signing in as:
-        <RadioGroup
-          row
-          aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue=""
-          name="radio-buttons-group"
-          onChange={handleChange}
-        >
+        <RadioGroup row aria-label="usertype" name="usertype" onChange={handleChange}>
           <FormControlLabel value="customer" control={<Radio />} label="Customer" />
           <FormControlLabel value="admin" control={<Radio />} label="Admin" />
         </RadioGroup>
       </Stack>
       <Stack spacing={3}>
-        <TextField name="email" label="Email address" />
-
+        <TextField name="email" label="Email address" onChange={handleEmailChange} />
         <TextField
           name="password"
           label="Password"
           type={showPassword ? 'text' : 'password'}
+          onChange={handlePasswordChange}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
