@@ -4,16 +4,17 @@ import 'react-toastify/dist/ReactToastify.css';
 // @mui
 import { Link, Stack, IconButton, InputAdornment, TextField, RadioGroup, Radio, FormControlLabel } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+// API
+import { loginCheck } from '../../../utils/apiCalls';
 // components
 import Iconify from '../../../components/iconify';
-
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
-  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [utype, setUType] = useState('');
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -23,19 +24,19 @@ export default function LoginForm() {
     setPassword(event.target.value);
   };
 
-  const handleClick = () => {
-    if (value === 'admin') {
-      navigate('/dashboard', { replace: true });
-    } else if (value === 'customer') {
-      navigate('/customer', { replace: true });
-    } else {
-      window.alert('Please fill all the necessary details');
-    }
+  const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
+
+  const handleSubmit = () => {
+    const data = { email, password, utype };
+    if (!data.email) return console.log('Email Required');
+    if (!validateEmail(data.email)) return console.log('Invalid Email');
+    if (!data.password) return console.log('Password Required');
+    if (!data.utype) return console.log('User Type Required');
+    return loginCheck(data);
   };
 
-  const [value, setValue] = useState();
-  const handleChange = (event) => {
-    setValue(event.target.value);
+  const handleUTypeChange = (event) => {
+    setUType(event.target.value);
   };
 
   return (
@@ -54,13 +55,13 @@ export default function LoginForm() {
       />
       <Stack justifyContent="space-between" sx={{ mb: 1 }} fontSize={20} fontStyle={'italic'}>
         Signing in as:
-        <RadioGroup row aria-label="usertype" name="usertype" onChange={handleChange}>
+        <RadioGroup row aria-label="usertype" name="usertype" onChange={handleUTypeChange}>
           <FormControlLabel value="customer" control={<Radio />} label="Customer" />
           <FormControlLabel value="admin" control={<Radio />} label="Admin" />
         </RadioGroup>
       </Stack>
       <Stack spacing={3}>
-        <TextField name="email" label="Email address" onChange={handleEmailChange} />
+        <TextField id="email" name="email" label="Email address" onChange={handleEmailChange} />
         <TextField
           name="password"
           label="Password"
@@ -84,7 +85,7 @@ export default function LoginForm() {
         </Link>
       </Stack>
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleClick}>
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleSubmit}>
         Login
       </LoadingButton>
     </>
