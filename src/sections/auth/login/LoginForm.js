@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // @mui
 import { Link, Stack, IconButton, InputAdornment, TextField, RadioGroup, Radio, FormControlLabel } from '@mui/material';
@@ -28,10 +28,10 @@ export default function LoginForm() {
 
   const handleSubmit = () => {
     const data = { email, password, utype };
-    if (!data.email) return console.log('Email Required');
-    if (!validateEmail(data.email)) return console.log('Invalid Email');
-    if (!data.password) return console.log('Password Required');
-    if (!data.utype) return console.log('User Type Required');
+    if (!data.email) return toast.error('Email Required');
+    if (!validateEmail(data.email)) return toast.error('Invalid Email');
+    if (!data.password) return toast.error('Password Required');
+    if (!data.utype) return toast.error('User Type Required');
     return loginCheck(data);
   };
 
