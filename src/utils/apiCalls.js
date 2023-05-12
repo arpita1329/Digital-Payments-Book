@@ -30,7 +30,8 @@ export async function loginCheck(obj) {
       const token = JSON.stringify(loginResponse.data.message.token);
       if (!token) return toast.error(loginResponse.data.message);
       window.localStorage.setItem('token', token);
-      window.location.href = '/dashboard';
+      if (loginResponse.data.message.token.utype === 'admin') window.location.href = '/dashboard';
+      else window.location.href = '/customer';
       return toast.success('Login Success');
     }
     throw new Error(loginResponse);
@@ -44,14 +45,10 @@ export async function registerApi(obj) {
     const config = createConfig(registerUrl, obj, 'post');
     const res = await axios(config);
     if (res.status === 200) {
-      const token = JSON.stringify(res.data.token);
-      if (!token) return toast.error(res.data.message);
-      window.localStorage.setItem('token', token);
-      window.location.href = '/dashboard';
       return toast.success('Registration Success');
     }
     throw new Error(res);
   } catch (error) {
-    return toast.error('Failed to Login. Please try again later.');
+    return toast.error('Failed to Register. Please try again later.');
   }
 }
