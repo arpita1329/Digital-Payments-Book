@@ -1,7 +1,9 @@
 let Token = window.localStorage.getItem('token');
-if (Token) Token = Token.replaceAll('"', '');
-console.log(Token);
+if (Token) Token = JSON.parse(Token);
 
-export const userEmail = Token;
-export const userName = Token;
-export const userUType = Token;
+export const userFullName = Token.name;
+export const userEmail = Token.email;
+export const userUType = Token.utype;
+
+export const isAdmin = userUType === 'admin';
+export const userFirstName = Token.name.split(' ')[0];

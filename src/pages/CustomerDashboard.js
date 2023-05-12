@@ -3,6 +3,7 @@ import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography } from '@mui/material';
+import { userFirstName } from '../utils/tokenHandler';
 // components
 import Iconify from '../components/iconify';
 // sections
@@ -12,6 +13,7 @@ import { AppTasks, AppNewsUpdate, AppOrderTimeline } from '../sections/@dashboar
 
 export default function CustomerDashboard() {
   const theme = useTheme();
+  console.log(userFirstName);
   return (
     <>
       <Helmet>
@@ -20,7 +22,7 @@ export default function CustomerDashboard() {
 
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, Arpita
+          Hi, {userFirstName}
         </Typography>
 
         <Grid container spacing={3}>
