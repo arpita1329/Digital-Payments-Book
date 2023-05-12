@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { decodeToken } from 'react-jwt';
 
 // URLs
 const loginUrl = 'http://localhost:5000/login';
