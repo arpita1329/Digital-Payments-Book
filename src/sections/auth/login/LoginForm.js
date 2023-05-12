@@ -14,7 +14,6 @@ export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [utype, setUType] = useState('');
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -27,16 +26,11 @@ export default function LoginForm() {
   const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
   const handleSubmit = () => {
-    const data = { email, password, utype };
+    const data = { email, password };
     if (!data.email) return toast.error('Email Required');
     if (!validateEmail(data.email)) return toast.error('Invalid Email');
     if (!data.password) return toast.error('Password Required');
-    if (!data.utype) return toast.error('User Type Required');
     return loginCheck(data);
-  };
-
-  const handleUTypeChange = (event) => {
-    setUType(event.target.value);
   };
 
   return (
@@ -53,13 +47,6 @@ export default function LoginForm() {
         pauseOnHover
         theme="colored"
       />
-      <Stack justifyContent="space-between" sx={{ mb: 1 }} fontSize={20} fontStyle={'italic'}>
-        Signing in as:
-        <RadioGroup row aria-label="usertype" name="usertype" onChange={handleUTypeChange}>
-          <FormControlLabel value="customer" control={<Radio />} label="Customer" />
-          <FormControlLabel value="admin" control={<Radio />} label="Admin" />
-        </RadioGroup>
-      </Stack>
       <Stack spacing={3}>
         <TextField id="email" name="email" label="Email address" onChange={handleEmailChange} />
         <TextField
