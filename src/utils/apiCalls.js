@@ -27,7 +27,7 @@ export async function loginCheck(obj) {
     const config = createConfig(loginUrl, obj, 'post');
     const loginResponse = await axios(config);
     if (loginResponse.status === 200) {
-      const token = JSON.stringify(loginResponse.data.token);
+      const token = JSON.stringify(loginResponse.data.message.token);
       if (!token) return toast.error(loginResponse.data.message);
       window.localStorage.setItem('token', token);
       window.location.href = '/dashboard';

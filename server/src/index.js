@@ -31,12 +31,12 @@ const UserSchema = mongoose.Schema({
 const UserModel = mongoose.model('user', UserSchema);
 
 app.post('/login', (req, res) => {
-  const { email, password, utype } = req.body;
+  const { email, password } = req.body;
   console.log(req.body);
   UserModel.findOne({ email }, (err, id) => {
     if (id) {
       if (bcrypt.compareSync(password, id.password)) {
-        res.send({ message: 'Login Success' }, { token: { email: id.email, name: id.name, utype: id.utype } });
+        res.send({ message: { message: 'Login Success', token: { email: id.email, name: id.name, utype: id.utype } } });
       } else {
         res.send({ message: 'Incorrect Password' });
       }
