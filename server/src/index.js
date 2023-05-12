@@ -22,10 +22,10 @@ try {
 }
 
 const UserSchema = mongoose.Schema({
-  username: String,
-  password: String,
-  type: Number,
   email: String,
+  password: String,
+  name: String,
+  utype: String,
 });
 
 const UserModel = mongoose.model('user', UserSchema);
@@ -47,7 +47,8 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-  const { email, password, utype } = req.body;
+  console.log(req.body);
+  const { email, password, name, utype } = req.body;
 
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(password, salt);
@@ -56,6 +57,7 @@ app.post('/register', (req, res) => {
     {
       email,
       password: hash,
+      name,
       utype,
     },
     (err, user) => {

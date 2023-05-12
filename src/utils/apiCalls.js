@@ -4,6 +4,7 @@ import { decodeToken } from 'react-jwt';
 
 // URLs
 const loginUrl = 'http://localhost:5000/login';
+const registerUrl = 'http://localhost:5000/register';
 
 let Token = window.localStorage.getItem('token');
 if (Token) Token = Token.replaceAll('"', '');
@@ -33,6 +34,23 @@ export async function loginCheck(obj) {
       return toast.success('Login Success');
     }
     throw new Error(loginResponse);
+  } catch (error) {
+    return toast.error('Failed to Login. Please try again later.');
+  }
+}
+
+export async function registerApi(obj) {
+  try {
+    const config = createConfig(registerUrl, obj, 'post');
+    const res = await axios(config);
+    if (res.status === 200) {
+      const token = JSON.stringify(res.data.token);
+      if (!token) return toast.error(res.data.message);
+      window.localStorage.setItem('token', token);
+      window.location.href = '/dashboard';
+      return toast.success('Registration Success');
+    }
+    throw new Error(res);
   } catch (error) {
     return toast.error('Failed to Login. Please try again later.');
   }
