@@ -73,7 +73,7 @@ export default function RegisterForm() {
         pauseOnHover
         theme="colored"
       />
-      <Stack spacing={3} fontSize={20}>
+      <Stack spacing={1.7} fontSize={18}>
         Creating account for
         <Stack fontStyle={'italic'}>
           <RadioGroup row aria-label="usertype" name="usertype" onChange={handleUTypeChange}>
