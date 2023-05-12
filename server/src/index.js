@@ -32,7 +32,6 @@ const UserModel = mongoose.model('user', UserSchema);
 
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body);
   UserModel.findOne({ email }, (err, id) => {
     if (id) {
       if (bcrypt.compareSync(password, id.password)) {
@@ -47,9 +46,7 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-  console.log(req.body);
   const { email, password, name, utype } = req.body;
-
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(password, salt);
 
@@ -61,7 +58,6 @@ app.post('/register', (req, res) => {
       utype,
     },
     (err, user) => {
-      console.log(user);
       if (user) {
         res.send({ message: 'Registration Successful' });
       } else {
