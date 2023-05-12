@@ -6,8 +6,6 @@ import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover 
 // mocks_
 import account from '../../../_mock/account';
 
-
-
 // ----------------------------------------------------------------------
 
 const MENU_OPTIONS = [
@@ -38,7 +36,7 @@ export default function AccountPopover() {
     setOpen(null);
   };
   const login = '/login';
-  
+
   return (
     <>
       <IconButton

@@ -78,7 +78,6 @@ export default function Nav({ openNav, onCloseNav }) {
       <NavSection data={navConf} />
 
       <Box sx={{ flexGrow: 1 }} />
-
     </Scrollbar>
   );
 

@@ -147,9 +147,8 @@ export default function Retailer() {
   const isNotFound = !filteredUsers.length && !!filterName;
 
   const handleAlert = () => {
-    
-    if(window.confirm('Really want to go to payment page')){
-        window.location = 'https://dashboard.paytm.com/login/';
+    if (window.confirm('Really want to go to payment page')) {
+      window.location = 'https://dashboard.paytm.com/login/';
     }
   };
 
@@ -286,7 +285,6 @@ export default function Retailer() {
           },
         }}
       >
-
         <MenuItem sx={{ color: 'eva:edit-fill' }} onClick={handleAlert}>
           <Iconify icon={'mdi:currency-usd'} sx={{ mr: 2 }} />
           Pay
@@ -301,7 +299,6 @@ export default function Retailer() {
           <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
           Delete
         </MenuItem>
-
       </Popover>
     </>
   );

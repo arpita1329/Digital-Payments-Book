@@ -131,7 +131,14 @@ export default function DashboardAppPage() {
           <Grid item xs={12} md={6} lg={4}>
             <AppCurrentSubject
               title="Popular product"
-              chartLabels={['Jordan Delta', 'Nike Air Max Up', 'Nike React Art3mis', 'Nike Air Force 1 NDESTRUKT', 'Nike Space Hippie 04', 'Air Jordan XXXV PF']}
+              chartLabels={[
+                'Jordan Delta',
+                'Nike Air Max Up',
+                'Nike React Art3mis',
+                'Nike Air Force 1 NDESTRUKT',
+                'Nike Space Hippie 04',
+                'Air Jordan XXXV PF',
+              ]}
               chartData={[
                 { name: 'Series 1', data: [80, 50, 30, 40, 100, 20] },
                 { name: 'Series 2', data: [20, 30, 40, 80, 20, 80] },
@@ -147,13 +154,13 @@ export default function DashboardAppPage() {
               list={[...Array(5)].map((_, index) => ({
                 id: faker.datatype.uuid(),
                 title: faker.name.fullName(),
-                description:[
+                description: [
                   'Please mail me the payment receipt',
                   'Give me your contact number',
                   'Cleared all the pending payment',
                   'Not able to order from your site',
                   'Quickly fix my payment issue',
-                  'Mail me your account no. to clear all payments'
+                  'Mail me your account no. to clear all payments',
                 ][index],
                 image: `/assets/images/covers/cover_${index + 1}.jpg`,
                 postedAt: faker.date.recent(),

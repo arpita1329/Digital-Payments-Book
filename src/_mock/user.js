@@ -35,18 +35,7 @@ const users = [...Array(24)].map((_, index) => ({
   ]),
   price: faker.datatype.number(),
   status: sample(['clear', 'pending']),
-  quantity: sample([
-    '50',
-    '120',
-    '200',
-    '40',
-    '85',
-    '90',
-    '340',
-    '230',
-    '300',
-    '400',
-  ]),
+  quantity: sample(['50', '120', '200', '40', '85', '90', '340', '230', '300', '400']),
 }));
 
 export default users;

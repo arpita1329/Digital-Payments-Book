@@ -279,8 +279,12 @@ export default function UserPage() {
           },
         }}
       >
-
-        <MenuItem sx={{ color: 'eva:edit-fill' }} onClick={()=> window.alert('Message has been send to the customer to clear the pending payment as soon as possible')}>
+        <MenuItem
+          sx={{ color: 'eva:edit-fill' }}
+          onClick={() =>
+            window.alert('Message has been send to the customer to clear the pending payment as soon as possible')
+          }
+        >
           <Iconify icon={'mdi:alert'} sx={{ mr: 2 }} />
           Send Alerts
         </MenuItem>
@@ -294,7 +298,6 @@ export default function UserPage() {
           <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
           Delete
         </MenuItem>
-
       </Popover>
     </>
   );
