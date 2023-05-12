@@ -1,12 +1,22 @@
 import { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 // @mui
-import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox,  RadioGroup, Radio, FormControlLabel } from '@mui/material';
+import {
+  Link,
+  Stack,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Checkbox,
+  RadioGroup,
+  Radio,
+  FormControlLabel,
+} from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // components
 import Iconify from '../../../components/iconify';
-
-
 
 // ----------------------------------------------------------------------
 
@@ -21,22 +31,26 @@ export default function RegisterForm() {
 
   return (
     <>
-      <Stack spacing={3}  fontSize={20} fontStyle={'italic'}>
-        Creating account for 
-      <RadioGroup
-          row
-          aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue=""
-          name="radio-buttons-group"
-         
-        >
+      <ToastContainer
+        position="top-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+      <Stack spacing={3} fontSize={20} fontStyle={'italic'}>
+        Creating account for
+        <RadioGroup row aria-labelledby="demo-radio-buttons-group-label" defaultValue="" name="radio-buttons-group">
           <FormControlLabel value="customer" control={<Radio />} label="Customer" />
           <FormControlLabel value="admin" control={<Radio />} label="Admin" />
-
         </RadioGroup>
         <TextField name="username" label="UserName" />
         <TextField name="email" label="Email address" />
-
         <TextField
           name="password"
           label="New Password"
@@ -51,7 +65,6 @@ export default function RegisterForm() {
             ),
           }}
         />
-
         <TextField
           name="rpassword"
           label="Retype Password"
