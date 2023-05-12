@@ -31,32 +31,32 @@ const UserSchema = mongoose.Schema({
 const UserModel = mongoose.model('user', UserSchema);
 
 app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-
-  UserModel.findOne({ username }, (err, user) => {
-    if (user) {
-      if (bcrypt.compareSync(password, user.password)) {
-        res.send({ message: 'Login Success', user });
+  const { email, password, utype } = req.body;
+  console.log(req.body);
+  UserModel.findOne({ email }, (err, id) => {
+    if (id) {
+      if (bcrypt.compareSync(password, id.password)) {
+        res.send({ message: 'Login Success' }, { token: { email: id.email, name: id.name, utype: id.utype } });
       } else {
         res.send({ message: 'Incorrect Password' });
       }
     } else {
-      res.send('User is not registered');
+      res.send({ message: 'User is not registered' });
     }
   });
 });
 
 app.post('/register', (req, res) => {
-  const { username, email, password } = req.body;
+  const { email, password, utype } = req.body;
 
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(password, salt);
 
   UserModel.create(
     {
-      username,
       email,
       password: hash,
+      utype,
     },
     (err, user) => {
       console.log(user);

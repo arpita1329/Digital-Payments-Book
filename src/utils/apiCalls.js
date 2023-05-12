@@ -30,13 +30,13 @@ export async function loginCheck(obj) {
       const token = JSON.stringify(loginResponse.data.token);
       console.log(msg);
       window.localStorage.setItem('token', token);
-      window.location.href = '/';
+      window.location.href = '/dashboard';
       return toast.error('Login Success');
     }
 
     throw new Error(loginResponse);
   } catch (error) {
-    const msg = error?.response?.data?.error;
+    const msg = error?.response?.data;
     if (msg) return toast.error(msg);
     return toast.error('Failed to Login. Please try again later.');
   }
