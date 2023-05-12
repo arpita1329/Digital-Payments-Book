@@ -9,7 +9,6 @@ import { AppTasks, AppNewsUpdate, AppOrderTimeline } from '../sections/@dashboar
 // ----------------------------------------------------------------------
 
 export default function CustomerDashboard() {
-  console.log(userFirstName);
   return (
     <>
       <Helmet>
