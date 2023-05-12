@@ -12,7 +12,7 @@ app.use(express.json());
 mongoose.set('strictQuery', false);
 
 try {
-  const conn = mongoose.connect(process.env.MONGO_URI, {
+  mongoose.connect(process.env.MONGO_URI, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
   });
