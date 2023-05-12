@@ -26,18 +26,14 @@ export async function loginCheck(obj) {
     const config = createConfig(loginUrl, obj, 'post');
     const loginResponse = await axios(config);
     if (loginResponse.status === 200) {
-      const msg = loginResponse.data.message;
       const token = JSON.stringify(loginResponse.data.token);
-      console.log(msg);
+      if (!token) return toast.error(loginResponse.data.message);
       window.localStorage.setItem('token', token);
       window.location.href = '/dashboard';
-      return toast.error('Login Success');
+      return toast.success('Login Success');
     }
-
     throw new Error(loginResponse);
   } catch (error) {
-    const msg = error?.response?.data;
-    if (msg) return toast.error(msg);
     return toast.error('Failed to Login. Please try again later.');
   }
 }
