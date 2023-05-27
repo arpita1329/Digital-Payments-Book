@@ -78,7 +78,7 @@ export default function RegisterForm() {
         <Stack fontStyle={'italic'}>
           <RadioGroup row aria-label="usertype" name="usertype" onChange={handleUTypeChange}>
             <FormControlLabel value="customer" control={<Radio />} label="Customer" />
-            <FormControlLabel value="admin" control={<Radio />} label="Admin" />
+            <FormControlLabel value="admin" control={<Radio />} label="Retailer" />
           </RadioGroup>
         </Stack>
         <TextField name="Name" label="Name" onChange={handleNameChange} />

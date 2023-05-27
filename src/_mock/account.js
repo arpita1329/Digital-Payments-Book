@@ -5,7 +5,7 @@ const account = {
   displayName: userFullName,
   email: userEmail,
   photoURL: '/assets/images/avatars/avatar_default.jpg',
-  role: isAdmin ? 'Admin' : 'Retailer',
+  role: isAdmin ? 'Retailer' : 'Customer',
 };
 
 export default account;
