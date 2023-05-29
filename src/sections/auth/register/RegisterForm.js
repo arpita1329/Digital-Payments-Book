@@ -28,6 +28,7 @@ export default function RegisterForm() {
   const [utype, setUType] = useState('');
   const [rePassword, setRePassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [tncBox, setTncBox] = useState(false);
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -44,6 +45,9 @@ export default function RegisterForm() {
   const handleRePasswordChange = (event) => {
     setRePassword(event.target.value);
   };
+  const handleTncBoxChange = (event) => {
+    setTncBox(event.target.checked);
+  };
   const passwordMatch = password === rePassword;
 
   const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
@@ -56,6 +60,7 @@ export default function RegisterForm() {
     if (!passwordMatch) return toast.error('Passwords does not Match');
     if (!data.name) return toast.error('Name Required');
     if (!data.utype) return toast.error('User Type Required');
+    if (!tncBox) return toast.error('You must agree to the Terms and Conditions');
     return registerApi(data);
   };
 
@@ -102,7 +107,7 @@ export default function RegisterForm() {
       </Stack>
 
       <Stack direction="row" alignItems="center" sx={{ my: 2 }}>
-        <Checkbox name="remember" label="Agree to terms-and-condition" />
+        <Checkbox name="remember" onChange={handleTncBoxChange} label="Agree to terms-and-condition" />
         Agree to terms and conditions
       </Stack>
 
