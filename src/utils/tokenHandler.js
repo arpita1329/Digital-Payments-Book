@@ -1,5 +1,5 @@
 let Token = window.localStorage.getItem('token');
-if (Token) Token = JSON.parse(Token);
+if (Token?.name) Token = JSON.parse(Token);
 else Token = { name: 'Arpita', email: 'Arpita@gmail.com', utype: 'admin' };
 
 export const userFullName = Token.name;
