@@ -1,46 +1,98 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // @mui
-import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox,  RadioGroup, Radio, FormControlLabel } from '@mui/material';
+import {
+  Stack,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Checkbox,
+  RadioGroup,
+  Radio,
+  FormControlLabel,
+} from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+// API
+import { registerApi } from '../../../utils/apiCalls';
 // components
 import Iconify from '../../../components/iconify';
-
-
 
 // ----------------------------------------------------------------------
 
 export default function RegisterForm() {
-  const navigate = useNavigate();
-
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [utype, setUType] = useState('');
+  const [rePassword, setRePassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [tncBox, setTncBox] = useState(false);
 
-  const handleClick = () => {
-    navigate('/login', { replace: true });
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+  const handleUTypeChange = (event) => {
+    setUType(event.target.value);
+  };
+  const handleRePasswordChange = (event) => {
+    setRePassword(event.target.value);
+  };
+  const handleTncBoxChange = (event) => {
+    setTncBox(event.target.checked);
+  };
+  const passwordMatch = password === rePassword;
+
+  const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
+
+  const handleSubmit = () => {
+    const data = { email, password, name, utype };
+    if (!data.email) return toast.error('Email Required');
+    if (!validateEmail(data.email)) return toast.error('Invalid Email');
+    if (!data.password) return toast.error('Password Required');
+    if (!passwordMatch) return toast.error('Passwords does not Match');
+    if (!data.name) return toast.error('Name Required');
+    if (!data.utype) return toast.error('User Type Required');
+    if (!tncBox) return toast.error('You must agree to the Terms and Conditions');
+    return registerApi(data);
   };
 
   return (
     <>
-      <Stack spacing={3}  fontSize={20} fontStyle={'italic'}>
-        Creating account for 
-      <RadioGroup
-          row
-          aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue=""
-          name="radio-buttons-group"
-         
-        >
-          <FormControlLabel value="customer" control={<Radio />} label="Customer" />
-          <FormControlLabel value="admin" control={<Radio />} label="Admin" />
-
-        </RadioGroup>
-        <TextField name="username" label="UserName" />
-        <TextField name="email" label="Email address" />
-
+      <ToastContainer
+        position="top-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+      <Stack spacing={1.7} fontSize={18}>
+        Creating account for
+        <Stack fontStyle={'italic'}>
+          <RadioGroup row aria-label="usertype" name="usertype" onChange={handleUTypeChange}>
+            <FormControlLabel value="customer" control={<Radio />} label="Customer" />
+            <FormControlLabel value="admin" control={<Radio />} label="Retailer" />
+          </RadioGroup>
+        </Stack>
+        <TextField name="Name" label="Name" onChange={handleNameChange} />
+        <TextField name="email" label="Email address" onChange={handleEmailChange} />
         <TextField
           name="password"
           label="New Password"
           type={showPassword ? 'text' : 'password'}
+          onChange={handlePasswordChange}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -51,29 +103,15 @@ export default function RegisterForm() {
             ),
           }}
         />
-
-        <TextField
-          name="rpassword"
-          label="Retype Password"
-          type={showPassword ? 'text' : 'password'}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
+        <TextField label="Retype Password" type="password" error={!passwordMatch} onChange={handleRePasswordChange} />
       </Stack>
 
       <Stack direction="row" alignItems="center" sx={{ my: 2 }}>
-        <Checkbox name="remember" label="Agree to terms-and-condition" />
+        <Checkbox name="remember" onChange={handleTncBoxChange} label="Agree to terms-and-condition" />
         Agree to terms and conditions
       </Stack>
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleClick}>
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleSubmit}>
         Register
       </LoadingButton>
     </>

@@ -1,60 +1,59 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // @mui
-import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox, RadioGroup, Radio, FormControlLabel } from '@mui/material';
+import { Link, Stack, IconButton, InputAdornment, TextField } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+// API
+import { loginCheck } from '../../../utils/apiCalls';
 // components
 import Iconify from '../../../components/iconify';
-
-
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
-  const navigate = useNavigate();
-
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleClick = () => {
-    if(value === 'admin'){
-      navigate('/dashboard', { replace: true });
-    }
-    else if(value === 'customer'){
-      navigate('/customer', { replace: true });
-    }
-    else{
-      window.alert('Please fill all the necessary details');
-    }
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
 
-  const [value, setValue] = useState();
-  const handleChange = (event) => {
-    setValue(event.target.value);
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
+
+  const handleSubmit = () => {
+    const data = { email, password };
+    if (!data.email) return toast.error('Email Required');
+    if (!validateEmail(data.email)) return toast.error('Invalid Email');
+    if (!data.password) return toast.error('Password Required');
+    return loginCheck(data);
   };
 
   return (
     <>
-      <Stack justifyContent="space-between" sx={{ my: 2 }} fontSize={20} fontStyle={'italic'}>
-            Signing in as:
-        <RadioGroup
-          row
-          aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue=""
-          name="radio-buttons-group"
-          onChange={handleChange}
-        >
-          <FormControlLabel value="customer" control={<Radio />} label="Customer" />
-          <FormControlLabel value="admin" control={<Radio />} label="Admin" />
-
-        </RadioGroup>
-      </Stack>
+      <ToastContainer
+        position="top-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <Stack spacing={3}>
-
-        <TextField name="email" label="Email address" />
-
+        <TextField id="email" name="email" label="Email address" onChange={handleEmailChange} />
         <TextField
           name="password"
           label="Password"
           type={showPassword ? 'text' : 'password'}
+          onChange={handlePasswordChange}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -68,14 +67,12 @@ export default function LoginForm() {
       </Stack>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-
-
         <Link variant="subtitle2" underline="hover">
           Forgot password?
         </Link>
       </Stack>
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleClick}>
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleSubmit}>
         Login
       </LoadingButton>
     </>

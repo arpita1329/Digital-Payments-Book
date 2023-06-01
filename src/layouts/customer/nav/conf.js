@@ -21,7 +21,6 @@ const navConf = [
     path: '/customer/contact',
     icon: icon('ic_blog'),
   },
-
 ];
 
 export default navConf;

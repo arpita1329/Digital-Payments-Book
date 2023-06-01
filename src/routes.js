@@ -15,7 +15,6 @@ import CustomerDashborad from './pages/CustomerDashboard';
 import Retailer from './pages/Retailer';
 import Contact from './pages/Contact';
 
-
 // ----------------------------------------------------------------------
 
 export default function Router() {
@@ -34,11 +33,11 @@ export default function Router() {
     {
       path: 'login',
       element: <LoginPage />,
-      index: true
+      index: true,
     },
     {
       path: 'register',
-      element: <RegisterPage />
+      element: <RegisterPage />,
     },
     {
       element: <SimpleLayout />,
@@ -56,13 +55,12 @@ export default function Router() {
       path: 'customer',
       element: <CustomerLayout />,
       children: [
-        { element: <Navigate to="/customer/dashboard" />, index: true},
-        { path: 'dashboard', element: <CustomerDashborad/>},
-        { path: 'retailer', element: <Retailer/> },
+        { element: <Navigate to="/customer/dashboard" />, index: true },
+        { path: 'dashboard', element: <CustomerDashborad /> },
+        { path: 'retailer', element: <Retailer /> },
         { path: 'contact', element: <Contact /> },
-
-      ]
-    }
+      ],
+    },
   ]);
 
   return routes;

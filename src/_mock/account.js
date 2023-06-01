@@ -1,10 +1,11 @@
+import { userFullName, userEmail, isAdmin } from '../utils/tokenHandler';
 // ----------------------------------------------------------------------
 
 const account = {
-  displayName: 'Arpita Dubey',
-  email: 'arpitadubey1329@gmail.com',
+  displayName: userFullName,
+  email: userEmail,
   photoURL: '/assets/images/avatars/avatar_default.jpg',
-  role: 'Retailer'
+  role: isAdmin ? 'Retailer' : 'Customer',
 };
 
 export default account;
